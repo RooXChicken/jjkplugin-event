@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -19,6 +21,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.util.Vector;
 
 import com.rooxchicken.jjk.JJKPlugin;
 import com.rooxchicken.jjk.Tasks.Blue;
@@ -74,7 +77,55 @@ public class Infinity implements Listener
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
 
-        useBlue(player, item);
+        if(player.isSneaking())
+            useBlue(player, item);
+        else
+        {
+            if(item == null || !item.hasItemMeta() || !player.isSneaking())
+                return;
+        
+            if(!item.getItemMeta().getDisplayName().equals("§b§l§oLimitless"))
+                return;
+
+            if(!JJKPlugin.useCursedEnergy(player, 200))
+                return;
+
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
+
+            Location loc;
+            Block b = JJKPlugin.getBlock(player, 50);
+            if(b != null)
+                loc = b.getLocation();
+            else
+                {
+                    Entity e = JJKPlugin.getTarget(player, 50);
+                    if(e != null)
+                        loc = e.getLocation();
+                    else
+                        return;
+                }
+            loc.add(new Vector(0, 1, 0));
+            Location start = player.getLocation().clone();
+            Location pos = start.clone();
+            loc.setDirection(player.getLocation().getDirection());
+            player.teleport(loc);
+            loc.add(0, 1, 0);
+
+            player.getWorld().playSound(loc, Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
+
+            for(int i = 0; i < 50; i++)
+            {
+                player.getWorld().spawnParticle(Particle.REDSTONE, pos.clone().add(new Vector(0, 1, 0)), 1, 0, 0, 0, new Particle.DustOptions(Color.BLUE, 2f));
+                for(Object o : JJKPlugin.getNearbyEntities(pos, 1))
+                {
+                    if(o instanceof LivingEntity)
+                    {
+                        ((LivingEntity)o).damage(8);
+                    }
+                }
+                pos.add(pos.getDirection().multiply(start.distance(loc)).multiply(1/50.0));
+            }
+        }
     }
 
     @EventHandler

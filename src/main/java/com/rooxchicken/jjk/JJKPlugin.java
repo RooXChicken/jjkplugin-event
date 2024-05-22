@@ -220,47 +220,26 @@ public class JJKPlugin extends JavaPlugin implements Listener
             return ray.getHitEntity();
         else
             return null;
+
+    }
+
+    public static Block getBlock(Player player, int range)
+    {
+        Predicate<Entity> p = new Predicate<Entity>() {
+
+            @Override
+            public boolean apply(Entity input)
+            {
+                return(input != player);
+            }
+            
+        };
+        RayTraceResult ray = player.getWorld().rayTrace(player.getEyeLocation(), player.getLocation().getDirection(), range, FluidCollisionMode.NEVER, true, 0.2, p);
         
-        // List<Entity> nearbyE = player.getNearbyEntities(range, range, range);
-        // // ArrayList<LivingEntity> livingE = new ArrayList<LivingEntity>();
-
-        // // for (Entity e : nearbyE) {
-        // //     if (e instanceof LivingEntity) {
-        // //         livingE.add((LivingEntity) e);
-        // //     }
-        // // }
-
-        // Entity target = null;
-        // BlockIterator bItr = new BlockIterator(player, range);
-        // Block block;
-        // Location loc;
-        // int bx, by, bz;
-        // double ex, ey, ez;
-        // // loop through player's line of sight
-        // while (bItr.hasNext())
-        // {
-        //     block = bItr.next();
-        //     bx = block.getX();
-        //     by = block.getY();
-        //     bz = block.getZ();
-
-        //     for (Entity e : nearbyE)
-        //     {
-        //         loc = e.getLocation();
-        //         ex = loc.getX();
-        //         ey = loc.getY();
-        //         ez = loc.getZ();
-        //         if ((bx-.75 <= ex && ex <= bx+1.75) && (bz-.75 <= ez && ez <= bz+1.75) && (by-1 <= ey && ey <= by+2.5))
-        //         {
-        //             Bukkit.getLogger().info(e.getName());
-        //             // // entity is close enough, set target and stop
-        //             // target = e;
-        //             // break;
-        //         }
-        //     }
-        // }
-
-        // return target;
+        if(ray != null)
+            return ray.getHitBlock();
+        else
+            return null;
     }
 
     public static Object[] getNearbyEntities(Location where, int range)

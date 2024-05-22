@@ -54,11 +54,14 @@ public class Blue extends Task
         }
 
         colors = new Color[] {Color.BLUE, Color.AQUA, Color.BLUE};
+
+        player.getWorld().playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 2);
     }
 
     @Override
     public void run()
     {
+        JJKPlugin.tasks.add(new BlueEffect(null, start, player));
         for(Object e : JJKPlugin.getNearbyEntities(start, (int)Math.ceil(size)*4))
         {
             if(e instanceof Entity && player != e)
