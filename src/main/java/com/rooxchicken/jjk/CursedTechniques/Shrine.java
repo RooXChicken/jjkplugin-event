@@ -35,9 +35,9 @@ public class Shrine implements Listener
         plugin = _plugin;
     }
 
-    public void slash(Player player, Location pos, boolean random, boolean dealDamage, int damage)
+    public void slash(Player player, Location pos, boolean random, boolean dealDamage, int damage, boolean playSound, float volume)
     {
-        JJKPlugin.tasks.add(new Slash(plugin, player, pos, random, dealDamage, damage));
+        JJKPlugin.tasks.add(new Slash(plugin, player, pos, random, dealDamage, damage, playSound, volume));
     }
 
     @EventHandler
@@ -68,7 +68,7 @@ public class Shrine implements Listener
             if(!JJKPlugin.useCursedEnergy(player, 30))
                 return;
 
-            slash(player, player.getLocation(), false, true, 9);
+            slash(player, player.getLocation(), false, true, 9, true, 1);
         }
     }
     

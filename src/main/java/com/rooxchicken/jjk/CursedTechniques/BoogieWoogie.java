@@ -109,6 +109,12 @@ public class BoogieWoogie implements Listener
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
 
+        if(item == null || !item.hasItemMeta())
+            return;
+        
+        if(!item.getItemMeta().getDisplayName().equals("§1§l§oBoogie Woogie"))
+            return;
+
         if(!targets.containsKey(player))
             targets.put(player, new BoogieWoogieTargets(player, this));
 

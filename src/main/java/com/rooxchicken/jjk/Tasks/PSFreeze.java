@@ -3,6 +3,7 @@ package com.rooxchicken.jjk.Tasks;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -48,6 +49,7 @@ public class PSFreeze extends Task
             {
                 data.remove(ProjectionSorcery.freezeTimeKey);
                 ProjectionSorcery.playerFrozenMap.remove(entity);
+                entity.getWorld().playSound(entity.getLocation(), Sound.BLOCK_GLASS_BREAK, 1, 1);
                 return;
             }
 

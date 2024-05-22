@@ -3,6 +3,7 @@ package com.rooxchicken.jjk.Tasks;
 import java.util.List;
 import java.util.Collection;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,6 +19,8 @@ import org.bukkit.util.Vector;
 import com.rooxchicken.jjk.JJKPlugin;
 
 import net.minecraft.server.network.TextFilter.e;
+import net.minecraft.sounds.SoundEffect;
+import net.minecraft.world.level.block.SoundEffectType;
 
 public class Slash extends Task
 {
@@ -35,7 +38,7 @@ public class Slash extends Task
 
     private int i = 0;
 
-    public Slash(Plugin _plugin, Player _player, Location _startPos, boolean _randomDirection, boolean _doesDamage, int _damage)
+    public Slash(Plugin _plugin, Player _player, Location _startPos, boolean _randomDirection, boolean _doesDamage, int _damage, boolean playSound, float volume)
     {
         super(_plugin);
 
@@ -54,6 +57,10 @@ public class Slash extends Task
 
         if(randomDirection)
             startPos.setDirection(new Vector(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1));
+
+        if(playSound)
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_SMALL_FALL, volume, 0.9f);
+        
     }
 
     @Override
@@ -61,6 +68,13 @@ public class Slash extends Task
     {
         exec();
         exec();
+
+        // if(i > 3)
+        //     for(Player p : Bukkit.getServer().getOnlinePlayers())
+        //     {
+        //         p.stopSound(Sound.ITEM_ELYTRA_FLYING);
+        //     }
+
 
         if(i > 400)
             cancel = true;

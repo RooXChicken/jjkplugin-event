@@ -57,7 +57,7 @@ public class Dismantle extends Task
 
     private void exec()
     {
-        shrine.slash(player, startPos, false, false, 0);
+        shrine.slash(player, startPos, false, false, 0, true, 0.6f);
         player.getWorld().playSound(target.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 0.4f, 1.2f);
         i++;
     }

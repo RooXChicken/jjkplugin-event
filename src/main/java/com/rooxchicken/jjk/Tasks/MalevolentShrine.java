@@ -44,7 +44,7 @@ public class MalevolentShrine extends Task
     public void run()
     {
         for(int s = 0; s < 2; s++)
-            shrine.slash(player, startPos, true, true, 9);
+            shrine.slash(player, startPos, true, true, 9, (i % 3 == 0), 0.4f);
 
         i++;
 

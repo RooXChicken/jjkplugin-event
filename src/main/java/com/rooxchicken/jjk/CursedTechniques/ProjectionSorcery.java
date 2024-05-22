@@ -73,6 +73,7 @@ public class ProjectionSorcery implements Listener
 
             PotionEffect speed = new PotionEffect(PotionEffectType.SPEED, 20, 5);
             player.addPotionEffect(speed);
+            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_RESPAWN_ANCHOR_DEPLETE, 1, 1);
         }
     }
 
@@ -97,6 +98,7 @@ public class ProjectionSorcery implements Listener
             player.getPersistentDataContainer().set(freezeTimeKey, PersistentDataType.INTEGER, 20);
 
             playerFrozenMap.put(player, player.getLocation().clone());
+            //player.getWorld().playSound(player.getLocation(), Sound.BLOCK_RESPAWN_ANCHOR_DEPLETE, 1, 1);
         }
     }
 }
