@@ -91,10 +91,12 @@ public class BoogieWoogie implements Listener
         
         if(item.getItemMeta().getDisplayName().equals("§1§l§oBoogie Woogie"))
         {
+            Entity target = JJKPlugin.getTarget(player, 80);
+            if(target == null)
+                return;
+            
             if(!JJKPlugin.useCursedEnergy(player, 60))
                 return;
-
-            Entity target = JJKPlugin.getTarget(player, 80);
             
             boogie(player, player, target);
         }

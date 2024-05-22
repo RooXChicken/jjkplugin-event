@@ -81,16 +81,11 @@ public class Infinity implements Listener
             useBlue(player, item);
         else
         {
-            if(item == null || !item.hasItemMeta() || !player.isSneaking())
+            if(item == null || !item.hasItemMeta())
                 return;
         
             if(!item.getItemMeta().getDisplayName().equals("§b§l§oLimitless"))
                 return;
-
-            if(!JJKPlugin.useCursedEnergy(player, 200))
-                return;
-
-            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
 
             Location loc;
             Block b = JJKPlugin.getBlock(player, 50);
@@ -104,6 +99,12 @@ public class Infinity implements Listener
                     else
                         return;
                 }
+
+            if(!JJKPlugin.useCursedEnergy(player, 200))
+                return;
+
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
+
             loc.add(new Vector(0, 1, 0));
             Location start = player.getLocation().clone();
             Location pos = start.clone();

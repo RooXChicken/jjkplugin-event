@@ -103,8 +103,11 @@ public class Blue extends Task
             }
         }
 
-        if(player.isSneaking())
+        if(player.isSneaking() && t == 0)
         {
+            if(!JJKPlugin.useCursedEnergy(player, 3))
+                cancel = true;
+
             size += Math.pow(0.6, ticks) * 0.2;
             ticks++;
 
