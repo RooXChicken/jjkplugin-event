@@ -71,6 +71,8 @@ public class Red extends Task
                 Vector move = start.clone().subtract(entity.getLocation()).toVector().multiply(distance*-2);
                 move.setY(Math.abs(move.getY())/4);
                 entity.setVelocity(move); //(start.clone().getDirection().multiply(-distance/3).add(new Vector(0, 1, 0)));
+                if(entity instanceof LivingEntity)
+                    ((LivingEntity)entity).damage(12);
                 player.getWorld().playSound(start, Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 1, 1.2f);
             }
         }
