@@ -53,6 +53,7 @@ public class Red extends Task
         }
 
         colors = new Color[] {Color.RED, Color.ORANGE, Color.RED};
+        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1, 1);
     }
 
     @Override
@@ -70,6 +71,7 @@ public class Red extends Task
                 Vector move = start.clone().subtract(entity.getLocation()).toVector().multiply(distance*-2);
                 move.setY(Math.abs(move.getY())/4);
                 entity.setVelocity(move); //(start.clone().getDirection().multiply(-distance/3).add(new Vector(0, 1, 0)));
+                player.getWorld().playSound(start, Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 1, 1.2f);
             }
         }
 
@@ -100,7 +102,9 @@ public class Red extends Task
                     zOffset = cacheZ[k];
                 }
 
-                player.getWorld().spawnParticle(Particle.REDSTONE, particlePos.clone().add(xOffset * sphereOffsetXZ * size, sphereOffset * size, zOffset * sphereOffsetXZ * size), 1, offset, offset, offset, new Particle.DustOptions(colors[(int)(Math.random()*3)], 1f));
+                player.getWorld().spawnParticle(Particle.REDSTONE, particlePos.add(xOffset * sphereOffsetXZ * size, sphereOffset * size, zOffset * sphereOffsetXZ * size), 1, offset, offset, offset, new Particle.DustOptions(colors[(int)(Math.random()*3)], 1f));
+                if(particlePos.getBlock().getType().isSolid())
+                    cancel = true;
             }
         }
 

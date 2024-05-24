@@ -94,20 +94,6 @@ public class JJKPlugin extends JavaPlugin implements Listener
         tasks = new ArrayList<Task>();
         tasks.add(new HandleCE(this));
 
-        // blocked = new ArrayList<String>();
-        // blocked.add("HopperInventorySearchEvent");
-        // blocked.add("EntityMoveEvent");
-        // blocked.add("GenericMoveEvent");
-        // blocked.add("PreCreatureSpawnEvent");
-        // blocked.add("GenericGameEvent");
-        // blocked.add("ServerTickEndEvent");
-        // blocked.add("ServerTickStartEvent");
-        // blocked.add("EndermanAttackPlayerEvent");
-        // blocked.add("PlayerNaturallySpawnCreaturesEvent");
-        // blocked.add("SlimeWanderEvent");
-        // blocked.add("ServerTickStartEvent");
-        // blocked.add("ServerTickStartEvent");
-
         cursedEnergyKey = new NamespacedKey(this, "jjk_cursedEnergy");
         maxCursedEnergyKey = new NamespacedKey(this, "jjk_maxCursedEnergy");
 
@@ -148,6 +134,8 @@ public class JJKPlugin extends JavaPlugin implements Listener
 
                 for(Task t : toRemove)
                     tasks.remove(t);
+
+                infinityHandler.tick();
             }
         }, 0, 1);
 

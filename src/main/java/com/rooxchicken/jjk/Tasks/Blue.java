@@ -67,7 +67,7 @@ public class Blue extends Task
             if(e instanceof Entity && player != e)
             {
                 Entity entity = (Entity)e;
-                double distance = 3-JJKPlugin.ClampD(start.distance(entity.getLocation()), 0, 3);
+                //double distance = 3-JJKPlugin.ClampD(start.distance(entity.getLocation()), 0, 3);
                 entity.setVelocity(start.clone().subtract(entity.getLocation()).toVector().multiply(size));
             }
         }
@@ -99,14 +99,19 @@ public class Blue extends Task
                     zOffset = cacheZ[k];
                 }
 
-                player.getWorld().spawnParticle(Particle.REDSTONE, particlePos.clone().add(xOffset * sphereOffsetXZ * size, sphereOffset * size, zOffset * sphereOffsetXZ * size), 1, offset, offset, offset, new Particle.DustOptions(colors[(int)(Math.random()*3)], 1f));
+                player.getWorld().spawnParticle(Particle.REDSTONE, particlePos.add(xOffset * sphereOffsetXZ * size, sphereOffset * size, zOffset * sphereOffsetXZ * size), 1, offset, offset, offset, new Particle.DustOptions(colors[(int)(Math.random()*3)], 1f));
+                if(particlePos.getBlock().getType().isSolid())
+                    cancel = true;
             }
         }
 
         if(player.isSneaking() && t == 0)
         {
             if(!JJKPlugin.useCursedEnergy(player, 3))
-                cancel = true;
+            {
+                player.getWorld().playSound(start, Sound.ENTITY_BAT_TAKEOFF, 1, 1);
+                t = 1;
+            }
 
             size += Math.pow(0.6, ticks) * 0.2;
             ticks++;
@@ -114,6 +119,11 @@ public class Blue extends Task
             double rad = Math.toRadians(start.getYaw()+90);
             start = player.getLocation().clone().add(Math.cos(rad), 1, Math.sin(rad));
             return;
+        }
+        else if(t == 0)
+        {
+            player.getWorld().playSound(start, Sound.ENTITY_BAT_TAKEOFF, 1, 1);
+
         }
 
 
