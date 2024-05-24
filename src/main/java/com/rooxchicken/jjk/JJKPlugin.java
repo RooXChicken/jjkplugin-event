@@ -58,9 +58,11 @@ import com.rooxchicken.jjk.CursedTechniques.Infinity;
 import com.rooxchicken.jjk.CursedTechniques.ProjectionSorcery;
 import com.rooxchicken.jjk.CursedTechniques.Shrine;
 import com.rooxchicken.jjk.Tasks.HandleCE;
+import com.rooxchicken.jjk.Tasks.HandleDoubleJump;
 import com.rooxchicken.jjk.Tasks.Task;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.FluidCollisionMode;
 
 import net.md_5.bungee.api.ChatMessageType;
@@ -93,6 +95,7 @@ public class JJKPlugin extends JavaPlugin implements Listener
         
         tasks = new ArrayList<Task>();
         tasks.add(new HandleCE(this));
+        tasks.add(new HandleDoubleJump(this));
 
         cursedEnergyKey = new NamespacedKey(this, "jjk_cursedEnergy");
         maxCursedEnergyKey = new NamespacedKey(this, "jjk_maxCursedEnergy");
@@ -107,6 +110,7 @@ public class JJKPlugin extends JavaPlugin implements Listener
         getServer().getPluginManager().registerEvents(infinityHandler, this);
         getServer().getPluginManager().registerEvents(boogieWoogieHandler, this);
         getServer().getPluginManager().registerEvents(projectionSorceryHandler, this);
+        getServer().getPluginManager().registerEvents((Listener)tasks.get(1), this);
         
         this.getCommand("giveitems").setExecutor(new GiveItems());
         this.getCommand("resetce").setExecutor(new ResetCE());
@@ -179,7 +183,10 @@ public class JJKPlugin extends JavaPlugin implements Listener
     {
         PersistentDataContainer data = player.getPersistentDataContainer();
         if(!data.has(cursedEnergyKey, PersistentDataType.INTEGER))
-            data.set(cursedEnergyKey, PersistentDataType.INTEGER, 2000);
+            data.set(cursedEnergyKey, PersistentDataType.INTEGER, 200);
+        
+        if(!data.has(maxCursedEnergyKey, PersistentDataType.INTEGER))
+            data.set(maxCursedEnergyKey, PersistentDataType.INTEGER, 200);
         
         int ce = data.get(cursedEnergyKey, PersistentDataType.INTEGER);
         ce -= amount;

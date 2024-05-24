@@ -72,8 +72,10 @@ public class BoogieWoogieTargets
         }
         else if(p != null && t != null)
         {
+            if(!JJKPlugin.useCursedEnergy(player, 60))
+                return false;
+                
             boogie.boogie(player, p, t);
-            JJKPlugin.useCursedEnergy(player, 60);
             
             removeGlow(player, p);
             removeGlow(player, t);
