@@ -23,6 +23,7 @@ public class GiveItems implements CommandExecutor
         Bukkit.dispatchCommand(sender, "give @s stick{display:{Name:'{\"text\":\"Limitless\",\"color\":\"aqua\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Allows for infinity (shift+rc) and red/blue (lc/rc)\",\"color\":\"aqua\",\"bold\":true}']}} 1");
         Bukkit.dispatchCommand(sender, "give @s stick{display:{Name:'{\"text\":\"Boogie Woogie\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Swap with the entity you are facing (rc), select entities and swap them (lc)\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}']}} 1");
         Bukkit.dispatchCommand(sender, "give @s stick{display:{Name:'{\"text\":\"Projection Sorcery\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Move quickly for 1 second (rc) and freeze enemies for 1 second (lc)\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}']}} 1");
+        Bukkit.dispatchCommand(sender, "give @s stick{display:{Name:'{\"text\":\"Inverse\",\"color\":\"red\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Inverts damage (strong is weak, weak is powerful)\",\"color\":\"red\",\"bold\":true,\"italic\":true}']}} 1");
 
         return true;
     }

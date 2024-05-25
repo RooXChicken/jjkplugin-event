@@ -55,6 +55,7 @@ import com.rooxchicken.jjk.Commands.GiveItems;
 import com.rooxchicken.jjk.Commands.ResetCE;
 import com.rooxchicken.jjk.CursedTechniques.BoogieWoogie;
 import com.rooxchicken.jjk.CursedTechniques.Infinity;
+import com.rooxchicken.jjk.CursedTechniques.Inverse;
 import com.rooxchicken.jjk.CursedTechniques.ProjectionSorcery;
 import com.rooxchicken.jjk.CursedTechniques.Shrine;
 import com.rooxchicken.jjk.Tasks.HandleCE;
@@ -83,8 +84,10 @@ public class JJKPlugin extends JavaPlugin implements Listener
     
     private Shrine shrineHandler;
     private Infinity infinityHandler;
+
     private BoogieWoogie boogieWoogieHandler;
     private ProjectionSorcery projectionSorceryHandler;
+    private Inverse inverseHandler;
 
     // private ArrayList<String> blocked;
 
@@ -102,14 +105,17 @@ public class JJKPlugin extends JavaPlugin implements Listener
 
         shrineHandler = new Shrine(this);
         infinityHandler = new Infinity(this);
+
         boogieWoogieHandler = new BoogieWoogie(this);
         projectionSorceryHandler = new ProjectionSorcery(this);
+        inverseHandler = new Inverse(this);
 
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(shrineHandler, this);
         getServer().getPluginManager().registerEvents(infinityHandler, this);
         getServer().getPluginManager().registerEvents(boogieWoogieHandler, this);
         getServer().getPluginManager().registerEvents(projectionSorceryHandler, this);
+        getServer().getPluginManager().registerEvents(inverseHandler, this);
         getServer().getPluginManager().registerEvents((Listener)tasks.get(1), this);
         
         this.getCommand("giveitems").setExecutor(new GiveItems());
