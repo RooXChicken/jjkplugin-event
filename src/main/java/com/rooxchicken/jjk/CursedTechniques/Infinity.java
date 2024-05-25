@@ -20,6 +20,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
@@ -235,18 +236,44 @@ public class Infinity implements Listener
     @EventHandler
     public void cancelDamage(EntityDamageEvent event)
     {
+        if(event.getCause() == DamageCause.ENTITY_ATTACK || event.getCause() == DamageCause.ENTITY_SWEEP_ATTACK)
+            return;
         if(!(event.getEntity() instanceof Player))
             return;
 
+        event.setCancelled(checkCancel((Player)event.getEntity(), event.getDamage()));
+    }
+
+    @EventHandler
+    public void cancelDamage(EntityDamageByEntityEvent event)
+    {
+        if(!(event.getDamager() instanceof Player) || !(event.getEntity() instanceof Player))
+            return;
+        
+        Player damager = (Player)event.getDamager();
+        ItemStack weapon = damager.getInventory().getItemInMainHand();
+
+        if(weapon == null || !weapon.hasItemMeta())
+            return;
+        
+        if(weapon.getItemMeta().getDisplayName().equals("§f§l§oInverted Spear of Heaven"))
+            return;
+
+        event.setCancelled(checkCancel((Player)event.getEntity(), event.getDamage()));
+    }
+
+    private boolean checkCancel(Player player, double damage)
+    {
         for(Task t : JJKPlugin.tasks)
         {
             if(t instanceof InfinityBarrier)
-                if(((InfinityBarrier)t).cancelDamage((Player)event.getEntity(), event.getDamage()))
+                if(((InfinityBarrier)t).cancelDamage(player, damage))
                 {
-                    event.setCancelled(true);
-                    return;
+                    return true;
                 }
         }
+
+        return false;
     }
 
 }

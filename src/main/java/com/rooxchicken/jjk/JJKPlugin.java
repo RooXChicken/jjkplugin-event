@@ -54,6 +54,7 @@ import com.google.common.base.Predicate;
 import com.rooxchicken.jjk.Commands.GiveItems;
 import com.rooxchicken.jjk.Commands.ResetCE;
 import com.rooxchicken.jjk.CursedTechniques.BoogieWoogie;
+import com.rooxchicken.jjk.CursedTechniques.CursedTools;
 import com.rooxchicken.jjk.CursedTechniques.Infinity;
 import com.rooxchicken.jjk.CursedTechniques.Inverse;
 import com.rooxchicken.jjk.CursedTechniques.ProjectionSorcery;
@@ -88,6 +89,7 @@ public class JJKPlugin extends JavaPlugin implements Listener
     private BoogieWoogie boogieWoogieHandler;
     private ProjectionSorcery projectionSorceryHandler;
     private Inverse inverseHandler;
+    private CursedTools cursedToolsHandler;
 
     // private ArrayList<String> blocked;
 
@@ -109,21 +111,21 @@ public class JJKPlugin extends JavaPlugin implements Listener
         boogieWoogieHandler = new BoogieWoogie(this);
         projectionSorceryHandler = new ProjectionSorcery(this);
         inverseHandler = new Inverse(this);
+        cursedToolsHandler = new CursedTools(this);
 
         getServer().getPluginManager().registerEvents(this, this);
         getServer().getPluginManager().registerEvents(shrineHandler, this);
         getServer().getPluginManager().registerEvents(infinityHandler, this);
+
         getServer().getPluginManager().registerEvents(boogieWoogieHandler, this);
         getServer().getPluginManager().registerEvents(projectionSorceryHandler, this);
         getServer().getPluginManager().registerEvents(inverseHandler, this);
+        getServer().getPluginManager().registerEvents(cursedToolsHandler, this);
+
         getServer().getPluginManager().registerEvents((Listener)tasks.get(1), this);
         
         this.getCommand("giveitems").setExecutor(new GiveItems());
         this.getCommand("resetce").setExecutor(new ResetCE());
-
-        // RegisteredListener registeredListener = new RegisteredListener(this, (listener, event) -> onEvent(event), EventPriority.NORMAL, this, false);
-        // for (HandlerList handler : HandlerList.getHandlerLists())
-        //     handler.register(registeredListener);
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable()
         {
@@ -153,12 +155,6 @@ public class JJKPlugin extends JavaPlugin implements Listener
         getLogger().info("Adding JJK abilities to Minecraft since 1987 (made by roo)");
     }
 
-    // public void onEvent(Event event)
-    // {
-    //     if(!blocked.contains(event.getEventName()))
-    //     getLogger().info(event.getEventName());
-    // }
-
     @Override
     public void onDisable()
     {
@@ -176,13 +172,6 @@ public class JJKPlugin extends JavaPlugin implements Listener
         
         if(!data.has(maxCursedEnergyKey, PersistentDataType.INTEGER))
             data.set(maxCursedEnergyKey, PersistentDataType.INTEGER, 200);
-    }
-
-    @EventHandler
-    public void onRightClick(PlayerInteractEvent event)
-    {
-        if(event.getItem() == null || !event.getItem().hasItemMeta())
-            return;
     }
 
     public static boolean useCursedEnergy(Player player, int amount)

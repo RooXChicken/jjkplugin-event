@@ -24,6 +24,8 @@ public class GiveItems implements CommandExecutor
         Bukkit.dispatchCommand(sender, "give @s stick{display:{Name:'{\"text\":\"Boogie Woogie\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Swap with the entity you are facing (rc), select entities and swap them (lc)\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}']}} 1");
         Bukkit.dispatchCommand(sender, "give @s stick{display:{Name:'{\"text\":\"Projection Sorcery\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Move quickly for 1 second (rc) and freeze enemies for 1 second (lc)\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}']}} 1");
         Bukkit.dispatchCommand(sender, "give @s stick{display:{Name:'{\"text\":\"Inverse\",\"color\":\"red\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Inverts damage (strong is weak, weak is powerful)\",\"color\":\"red\",\"bold\":true,\"italic\":true}']}} 1");
+        Bukkit.dispatchCommand(sender, "give @s iron_sword{display:{Name:'{\"text\":\"Inverted Spear of Heaven\",\"color\":\"white\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Bypasses infinity and allows the user to block slashes with a shield\",\"color\":\"white\",\"bold\":true,\"italic\":true}']}} 1");
+        Bukkit.dispatchCommand(sender, "give @s iron_sword{display:{Name:'{\"text\":\"Soul Split Katana\",\"color\":\"black\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Ignores most durability\",\"color\":\"black\",\"bold\":true,\"italic\":true}']}} 1");
 
         return true;
     }
