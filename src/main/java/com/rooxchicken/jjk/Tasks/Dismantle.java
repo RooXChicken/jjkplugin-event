@@ -47,7 +47,7 @@ public class Dismantle extends Task
         target.setMaximumNoDamageTicks(1);
         target.setNoDamageTicks(0);
 
-        target.damage(4);
+        target.damage(3);
 
         exec();
 

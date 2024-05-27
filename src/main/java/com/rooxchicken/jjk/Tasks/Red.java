@@ -72,7 +72,7 @@ public class Red extends Task
                 move.setY(Math.abs(move.getY())/4);
                 entity.setVelocity(move); //(start.clone().getDirection().multiply(-distance/3).add(new Vector(0, 1, 0)));
                 if(entity instanceof LivingEntity)
-                    ((LivingEntity)entity).damage(12);
+                    ((LivingEntity)entity).damage(28);
                 player.getWorld().playSound(start, Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 1, 1.2f);
             }
         }

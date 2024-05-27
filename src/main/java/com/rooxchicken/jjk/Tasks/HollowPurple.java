@@ -151,7 +151,7 @@ public class HollowPurple extends Task
                 {
                     if(o instanceof LivingEntity && o != player)
                     {
-                        ((LivingEntity)o).damage(30);
+                        ((LivingEntity)o).damage(99999);
                     }
                 }
             }
@@ -221,6 +221,7 @@ public class HollowPurple extends Task
         if(animTick > 40 && animTick < 52)
         {
             size += 0.1;
+            purpleLoc.setDirection(player.getLocation().getDirection());
 
             return;
         }
