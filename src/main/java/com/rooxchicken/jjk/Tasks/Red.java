@@ -59,7 +59,7 @@ public class Red extends Task
     @Override
     public void run()
     {
-        start.add(start.getDirection());
+        start.add(start.getDirection().multiply(1.5));
 
         for(Object e : JJKPlugin.getNearbyEntities(start, (int)Math.ceil(size)))
         {

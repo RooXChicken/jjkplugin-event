@@ -151,6 +151,7 @@ public class HollowPurple extends Task
                 {
                     if(o instanceof LivingEntity && o != player)
                     {
+                        if(t > 0)
                         ((LivingEntity)o).damage(99999);
                     }
                 }
@@ -231,7 +232,6 @@ public class HollowPurple extends Task
         if(animTick == 60)
         {
             player.getWorld().playSound(purpleLoc, Sound.ITEM_TRIDENT_THUNDER, 1, 0.8f);
-
         }
 
         purpleTick();

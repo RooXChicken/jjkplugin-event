@@ -34,6 +34,7 @@ public class SetSukuna implements CommandExecutor
         data.set(JJKPlugin.maxCursedEnergyKey, PersistentDataType.INTEGER, 2000);
 
         player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(40);
+        JJKPlugin.scoreboard.getTeam("CurseUsers").addEntry(player.getName());
 
         return true;
     }
