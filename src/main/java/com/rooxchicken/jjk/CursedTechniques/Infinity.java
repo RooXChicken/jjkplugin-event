@@ -263,7 +263,16 @@ public class Infinity implements Listener
         if(weapon == null || !weapon.hasItemMeta())
             return;
         
-        if(weapon.getItemMeta().getDisplayName().equals("§f§l§oInverted Spear of Heaven"))
+        boolean hasInfinity = false;
+
+        for(Task t : JJKPlugin.tasks)
+            if(t instanceof InfinityBarrier)
+                if(((InfinityBarrier)t).player == player)
+                {
+                    hasInfinity = true;
+                }
+
+        if(weapon.getItemMeta().getDisplayName().equals("§f§l§oInverted Spear of Heaven") && hasInfinity)
         {
             player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 0.4f, 1.6f);
             return;

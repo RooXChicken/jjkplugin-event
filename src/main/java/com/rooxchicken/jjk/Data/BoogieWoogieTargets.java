@@ -162,18 +162,10 @@ public class BoogieWoogieTargets
 
     public void update()
     {
-        if(p == null)
-            removeGlow(player, p);
-        else
-        {
+        if(p != null)
             addGlow(player, p);
-        }
-        if(t == null)
-            removeGlow(player, t);
-        else
-        {
+        if(t != null)
             addGlow(player, t);
-        }
     }
 
     private void setTeamPacket(Player player, Entity entity, String team)
