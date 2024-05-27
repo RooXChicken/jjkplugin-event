@@ -37,7 +37,7 @@ import com.rooxchicken.jjk.Tasks.Task;
 public class BoogieWoogie implements Listener
 {
     private Plugin plugin;
-    private HashMap<Player, BoogieWoogieTargets> targets;
+    public static HashMap<Player, BoogieWoogieTargets> targets;
 
     public Scoreboard scoreboard;
 

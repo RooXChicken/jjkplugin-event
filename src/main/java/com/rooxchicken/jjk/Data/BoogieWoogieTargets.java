@@ -164,8 +164,16 @@ public class BoogieWoogieTargets
     {
         if(p == null)
             removeGlow(player, p);
+        else
+        {
+            addGlow(player, p);
+        }
         if(t == null)
             removeGlow(player, t);
+        else
+        {
+            addGlow(player, t);
+        }
     }
 
     private void setTeamPacket(Player player, Entity entity, String team)

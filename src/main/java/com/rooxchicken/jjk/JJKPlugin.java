@@ -65,6 +65,7 @@ import com.rooxchicken.jjk.CursedTechniques.Infinity;
 import com.rooxchicken.jjk.CursedTechniques.Inverse;
 import com.rooxchicken.jjk.CursedTechniques.ProjectionSorcery;
 import com.rooxchicken.jjk.CursedTechniques.Shrine;
+import com.rooxchicken.jjk.Tasks.BoogieWoogieGlow;
 import com.rooxchicken.jjk.Tasks.HandleCE;
 import com.rooxchicken.jjk.Tasks.HandleDoubleJump;
 import com.rooxchicken.jjk.Tasks.Task;
@@ -113,6 +114,7 @@ public class JJKPlugin extends JavaPlugin implements Listener
         tasks = new ArrayList<Task>();
         tasks.add(new HandleCE(this));
         tasks.add(new HandleDoubleJump(this));
+        tasks.add(new BoogieWoogieGlow(this));
 
         cursedEnergyKey = new NamespacedKey(this, "jjk_cursedEnergy");
         maxCursedEnergyKey = new NamespacedKey(this, "jjk_maxCursedEnergy");
