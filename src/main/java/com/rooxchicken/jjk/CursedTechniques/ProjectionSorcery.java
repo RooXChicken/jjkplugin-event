@@ -92,10 +92,10 @@ public class ProjectionSorcery implements Listener
         
         if(item.getItemMeta().getDisplayName().equals("§8§l§oProjection Sorcery"))
         {
-            if(!JJKPlugin.useCursedEnergy(damager, 120))
+            if(!JJKPlugin.useCursedEnergy(damager, 100))
                 return;
 
-            player.getPersistentDataContainer().set(freezeTimeKey, PersistentDataType.INTEGER, 20);
+            player.getPersistentDataContainer().set(freezeTimeKey, PersistentDataType.INTEGER, 25);
 
             playerFrozenMap.put(player, player.getLocation().clone());
             //player.getWorld().playSound(player.getLocation(), Sound.BLOCK_RESPAWN_ANCHOR_DEPLETE, 1, 1);

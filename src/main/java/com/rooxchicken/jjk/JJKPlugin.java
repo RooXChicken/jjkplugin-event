@@ -10,8 +10,10 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -44,6 +46,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
@@ -95,6 +98,11 @@ public class JJKPlugin extends JavaPlugin implements Listener
     private Inverse inverseHandler;
     private CursedTools cursedToolsHandler;
 
+    public static boolean hasToji = false;
+
+    public static Scoreboard scoreboard;
+    private static int teamIndex = 0;
+
     // private ArrayList<String> blocked;
 
     @Override
@@ -136,6 +144,15 @@ public class JJKPlugin extends JavaPlugin implements Listener
         this.getCommand("setgojo").setExecutor(new SetGojo());
         this.getCommand("setsukuna").setExecutor(new SetSukuna());
 
+        scoreboard = Bukkit.getServer().getScoreboardManager().getMainScoreboard();
+        scoreboard.registerNewTeam("Sorcerers");
+        scoreboard.getTeam("Sorcerers").setColor(ChatColor.AQUA);
+        scoreboard.getTeam("Sorcerers").setDisplayName(ChatColor.AQUA + "Sorcers");
+
+        scoreboard.registerNewTeam("CurseUsers");
+        scoreboard.getTeam("CurseUsers").setColor(ChatColor.RED);
+        scoreboard.getTeam("CurseUsers").setDisplayName(ChatColor.RED + "Curse Users");
+
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable()
         {
             public void run()
@@ -171,6 +188,8 @@ public class JJKPlugin extends JavaPlugin implements Listener
     public void onDisable()
     {
         getServer().getScoreboardManager().getMainScoreboard().getTeam("BoogieWoogieSelect").unregister();
+        getServer().getScoreboardManager().getMainScoreboard().getTeam("Sorcerers").unregister();
+        getServer().getScoreboardManager().getMainScoreboard().getTeam("CurseUsers").unregister();
     }
 
     @EventHandler
@@ -192,18 +211,31 @@ public class JJKPlugin extends JavaPlugin implements Listener
     public static void selectCursedTechnique(Player player)
     {
         PersistentDataContainer data = player.getPersistentDataContainer();
-        int ce = (int)(Math.random() * 3);
+        int ct = -1;
+
+        if(!hasToji)
+            ct = (int)(Math.random() * 4);
+        else
+            ct = (int)(Math.random() * 3);
         
-        data.set(cursedTechniqueKey, PersistentDataType.INTEGER, ce);
-        switch(ce)
+        data.set(cursedTechniqueKey, PersistentDataType.INTEGER, ct);
+        switch(ct)
         {
             case 0: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "give " + player.getName() + " brown_dye{display:{Name:'{\"text\":\"Boogie Woogie\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Swap with the entity you are facing (rc), select entities and swap them (lc)\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}']}} 1"); break;
             case 1: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "give " + player.getName() + " paper{display:{Name:'{\"text\":\"Projection Sorcery\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Move quickly for 1 second (rc) and freeze enemies for 1 second (lc)\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}']}} 1");break;
             case 2: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "give " + player.getName() + " nether_star{display:{Name:'{\"text\":\"Inverse\",\"color\":\"red\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Inverts damage (strong is weak, weak is powerful)\",\"color\":\"red\",\"bold\":true,\"italic\":true}']}} 1"); break;
+            case 3: hasToji = true; player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(40); Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "give " + player.getName() + " iron_sword{display:{Name:'{\"text\":\"Inverted Spear of Heaven\",\"color\":\"white\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Bypasses infinity and allows the user to block slashes with a shield\",\"color\":\"white\",\"bold\":true,\"italic\":true}']},Unbreakable:1b} 1"); break;
         }
 
         data.set(cursedEnergyKey, PersistentDataType.INTEGER, 200);
         data.set(maxCursedEnergyKey, PersistentDataType.INTEGER, 200);
+
+        if(teamIndex % 2 == 0)
+            scoreboard.getTeam("Sorcerers").addEntry(player.getName());
+        else
+            scoreboard.getTeam("CurseUsers").addEntry(player.getName());
+
+        teamIndex++;
     }
 
     public static boolean useCursedEnergy(Player player, int amount)

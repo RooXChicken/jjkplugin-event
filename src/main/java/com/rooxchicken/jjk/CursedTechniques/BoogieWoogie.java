@@ -133,7 +133,7 @@ public class BoogieWoogie implements Listener
     private void selectBoogie(Player player, ItemStack item)
     {
         if(!targets.containsKey(player))
-        targets.put(player, new BoogieWoogieTargets(player, this));
+            targets.put(player, new BoogieWoogieTargets(player, this));
 
         if(player.isSneaking())
         {
@@ -160,7 +160,7 @@ public class BoogieWoogie implements Listener
     @EventHandler
     public void selectBoogieWoogie(PlayerInteractEvent event)
     {
-        if(event.getAction() != Action.LEFT_CLICK_AIR)
+        if(event.getAction() != Action.LEFT_CLICK_AIR && event.getAction() != Action.LEFT_CLICK_BLOCK)
             return;
         
         Player player = event.getPlayer();

@@ -2,6 +2,7 @@ package com.rooxchicken.jjk.Commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,6 +32,8 @@ public class SetSukuna implements CommandExecutor
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.set(JJKPlugin.cursedEnergyKey, PersistentDataType.INTEGER, 2000);
         data.set(JJKPlugin.maxCursedEnergyKey, PersistentDataType.INTEGER, 2000);
+
+        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(40);
 
         return true;
     }

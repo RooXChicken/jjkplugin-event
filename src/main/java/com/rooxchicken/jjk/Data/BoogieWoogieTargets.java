@@ -3,6 +3,7 @@ package com.rooxchicken.jjk.Data;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
@@ -18,6 +19,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLib;
 import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.InternalStructure;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.WrappedDataValue;
@@ -99,10 +101,7 @@ public class BoogieWoogieTargets
 
     public void addGlow(Player player, Entity entity)
     {
-        if(entity instanceof Player)
-            boogieWoogie.scoreboard.getTeam("BoogieWoogieSelect").addEntry(((Player)entity).getDisplayName());
-        else
-            boogieWoogie.scoreboard.getTeam("BoogieWoogieSelect").addEntry(entity.getUniqueId().toString());
+        setTeamPacket(player, entity, "BoogieWoogieSelect");
 
         PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
         packet.getIntegers().write(0, entity.getEntityId()); //Set packet's entity id
@@ -132,10 +131,10 @@ public class BoogieWoogieTargets
 
     public void removeGlow(Player player, Entity entity)
     {
-        if(entity instanceof Player)
-            boogieWoogie.scoreboard.getTeam("BoogieWoogieSelect").removeEntry(((Player)entity).getDisplayName());
-        else
-            boogieWoogie.scoreboard.getTeam("BoogieWoogieSelect").removeEntry(entity.getUniqueId().toString());
+        String teamName = JJKPlugin.scoreboard.getTeam("Sorcerers").hasEntry((entity instanceof Player) ? entity.getName() : entity.getUniqueId().toString()) ? "Sorcerers" : "CurseUsers";
+        Bukkit.getLogger().info(teamName);
+        setTeamPacket(player, entity, JJKPlugin.scoreboard.getEntries().contains((entity instanceof Player) ? entity.getName() : entity.getUniqueId().toString()) ? "Sorcerers" : "CurseUsers");
+
         PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
         packet.getIntegers().write(0, entity.getEntityId()); //Set packet's entity id
 
@@ -167,5 +166,21 @@ public class BoogieWoogieTargets
             removeGlow(player, p);
         if(t == null)
             removeGlow(player, t);
+    }
+
+    private void setTeamPacket(Player player, Entity entity, String team)
+    {
+        PacketContainer teamPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.SCOREBOARD_TEAM);
+        teamPacket.getStrings().write(0, team);
+        teamPacket.getIntegers().write(0, 3);
+
+        Optional<InternalStructure> optStruct = teamPacket.getOptionalStructures().read(0);
+        InternalStructure struct = optStruct.get();
+
+        teamPacket.getModifier().write(2, Lists.newArrayList((entity instanceof Player) ? entity.getName() : entity.getUniqueId().toString()));
+        
+        teamPacket.getOptionalStructures().write(0, Optional.of(struct));
+
+        ProtocolLibrary.getProtocolManager().sendServerPacket(player, teamPacket);
     }
 }

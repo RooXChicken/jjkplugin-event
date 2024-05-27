@@ -249,6 +249,9 @@ public class Infinity implements Listener
     {
         if(!(event.getDamager() instanceof Player) || !(event.getEntity() instanceof Player))
         {
+            if(!(event.getEntity() instanceof Player))
+                return;
+                
             event.setCancelled(checkCancel((Player)event.getEntity(), event.getFinalDamage()));
             return;
         }
