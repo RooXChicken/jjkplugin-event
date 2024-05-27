@@ -13,6 +13,12 @@ commands:
    resetcursedtechniques:
       description: Resets all of the cursed techniques
       usage: /resetcursedtechniques
+   setgojo:
+      description: Sets the gojo
+      usage: /setgojo <player>
+   setsukuna:
+      description: Sets the sukuna
+      usage: /setsukuna <player>
 
 depend: [ ProtocolLib ]
 

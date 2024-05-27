@@ -53,6 +53,9 @@ import com.comphenix.protocol.ProtocolManager;
 import com.google.common.base.Predicate;
 import com.rooxchicken.jjk.Commands.GiveItems;
 import com.rooxchicken.jjk.Commands.ResetCE;
+import com.rooxchicken.jjk.Commands.ResetCursedTechniques;
+import com.rooxchicken.jjk.Commands.SetGojo;
+import com.rooxchicken.jjk.Commands.SetSukuna;
 import com.rooxchicken.jjk.CursedTechniques.BoogieWoogie;
 import com.rooxchicken.jjk.CursedTechniques.CursedTools;
 import com.rooxchicken.jjk.CursedTechniques.Infinity;
@@ -105,7 +108,7 @@ public class JJKPlugin extends JavaPlugin implements Listener
 
         cursedEnergyKey = new NamespacedKey(this, "jjk_cursedEnergy");
         maxCursedEnergyKey = new NamespacedKey(this, "jjk_maxCursedEnergy");
-        cursedEnergyKey = new NamespacedKey(this, "jjk_cursedTechnique");
+        cursedTechniqueKey = new NamespacedKey(this, "jjk_cursedTechnique");
 
         shrineHandler = new Shrine(this);
         infinityHandler = new Infinity(this);
@@ -128,6 +131,10 @@ public class JJKPlugin extends JavaPlugin implements Listener
         
         this.getCommand("giveitems").setExecutor(new GiveItems());
         this.getCommand("resetce").setExecutor(new ResetCE());
+        this.getCommand("resetcursedtechniques").setExecutor(new ResetCursedTechniques());
+
+        this.getCommand("setgojo").setExecutor(new SetGojo());
+        this.getCommand("setsukuna").setExecutor(new SetSukuna());
 
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable()
         {
@@ -182,12 +189,21 @@ public class JJKPlugin extends JavaPlugin implements Listener
             selectCursedTechnique(player);
     }
 
-    private void selectCursedTechnique(Player player)
+    public static void selectCursedTechnique(Player player)
     {
         PersistentDataContainer data = player.getPersistentDataContainer();
-        int ce = (int)Math.random() * 3;
+        int ce = (int)(Math.random() * 3);
         
         data.set(cursedTechniqueKey, PersistentDataType.INTEGER, ce);
+        switch(ce)
+        {
+            case 0: Bukkit.dispatchCommand(player, "give @s brown_dye{display:{Name:'{\"text\":\"Boogie Woogie\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Swap with the entity you are facing (rc), select entities and swap them (lc)\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}']}} 1"); break;
+            case 1: Bukkit.dispatchCommand(player, "give @s paper{display:{Name:'{\"text\":\"Projection Sorcery\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Move quickly for 1 second (rc) and freeze enemies for 1 second (lc)\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}']}} 1");break;
+            case 2: Bukkit.dispatchCommand(player, "give @s nether_star{display:{Name:'{\"text\":\"Inverse\",\"color\":\"red\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Inverts damage (strong is weak, weak is powerful)\",\"color\":\"red\",\"bold\":true,\"italic\":true}']}} 1"); break;
+        }
+
+        data.set(cursedEnergyKey, PersistentDataType.INTEGER, 200);
+        data.set(maxCursedEnergyKey, PersistentDataType.INTEGER, 200);
     }
 
     public static boolean useCursedEnergy(Player player, int amount)

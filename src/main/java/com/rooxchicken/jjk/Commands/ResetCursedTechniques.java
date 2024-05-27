@@ -22,7 +22,7 @@ public class ResetCursedTechniques implements CommandExecutor
             return false;
         }
 
-        
+        JJKPlugin.selectCursedTechnique(Bukkit.getServer().getPlayer(sender.getName()));
 
         return true;
     }
