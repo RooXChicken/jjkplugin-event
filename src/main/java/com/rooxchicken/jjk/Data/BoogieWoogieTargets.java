@@ -132,8 +132,7 @@ public class BoogieWoogieTargets
     public void removeGlow(Player player, Entity entity)
     {
         String teamName = JJKPlugin.scoreboard.getTeam("Sorcerers").hasEntry((entity instanceof Player) ? entity.getName() : entity.getUniqueId().toString()) ? "Sorcerers" : "CurseUsers";
-        Bukkit.getLogger().info(teamName);
-        setTeamPacket(player, entity, JJKPlugin.scoreboard.getEntries().contains((entity instanceof Player) ? entity.getName() : entity.getUniqueId().toString()) ? "Sorcerers" : "CurseUsers");
+        setTeamPacket(player, entity, teamName);
 
         PacketContainer packet = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.ENTITY_METADATA);
         packet.getIntegers().write(0, entity.getEntityId()); //Set packet's entity id
