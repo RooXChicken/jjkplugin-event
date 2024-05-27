@@ -26,7 +26,7 @@ public class SetGojo implements CommandExecutor
 
         Player player = Bukkit.getServer().getPlayer(args[0]);
 
-        Bukkit.dispatchCommand(player, "give @s light_blue_dye{display:{Name:'{\"text\":\"Limitless\",\"color\":\"aqua\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Allows for infinity (shift+rc) and red/blue (lc/rc)\",\"color\":\"aqua\",\"bold\":true}']}} 1");
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "give " + player.getName() + " light_blue_dye{display:{Name:'{\"text\":\"Limitless\",\"color\":\"aqua\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Allows for infinity (shift+rc) and red/blue (lc/rc)\",\"color\":\"aqua\",\"bold\":true}']}} 1");
         
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.set(JJKPlugin.cursedEnergyKey, PersistentDataType.INTEGER, 2000);

@@ -26,7 +26,7 @@ public class SetSukuna implements CommandExecutor
 
         Player player = Bukkit.getServer().getPlayer(args[0]);
 
-        Bukkit.dispatchCommand(player, "give @s gray_dye{display:{Name:'{\"text\":\"Shrine\",\"color\":\"gray\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Fires cleave (rc) and dismantle (atk)\",\"color\":\"gray\",\"bold\":true}']}} 1");
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "give " + player.getName() + " gray_dye{display:{Name:'{\"text\":\"Shrine\",\"color\":\"gray\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Fires cleave (rc) and dismantle (atk)\",\"color\":\"gray\",\"bold\":true}']}} 1");
 
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.set(JJKPlugin.cursedEnergyKey, PersistentDataType.INTEGER, 2000);

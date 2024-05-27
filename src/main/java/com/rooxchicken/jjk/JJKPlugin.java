@@ -197,9 +197,9 @@ public class JJKPlugin extends JavaPlugin implements Listener
         data.set(cursedTechniqueKey, PersistentDataType.INTEGER, ce);
         switch(ce)
         {
-            case 0: Bukkit.dispatchCommand(player, "give @s brown_dye{display:{Name:'{\"text\":\"Boogie Woogie\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Swap with the entity you are facing (rc), select entities and swap them (lc)\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}']}} 1"); break;
-            case 1: Bukkit.dispatchCommand(player, "give @s paper{display:{Name:'{\"text\":\"Projection Sorcery\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Move quickly for 1 second (rc) and freeze enemies for 1 second (lc)\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}']}} 1");break;
-            case 2: Bukkit.dispatchCommand(player, "give @s nether_star{display:{Name:'{\"text\":\"Inverse\",\"color\":\"red\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Inverts damage (strong is weak, weak is powerful)\",\"color\":\"red\",\"bold\":true,\"italic\":true}']}} 1"); break;
+            case 0: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "give " + player.getName() + " brown_dye{display:{Name:'{\"text\":\"Boogie Woogie\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Swap with the entity you are facing (rc), select entities and swap them (lc)\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":true}']}} 1"); break;
+            case 1: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "give " + player.getName() + " paper{display:{Name:'{\"text\":\"Projection Sorcery\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Move quickly for 1 second (rc) and freeze enemies for 1 second (lc)\",\"color\":\"dark_gray\",\"bold\":true,\"italic\":true}']}} 1");break;
+            case 2: Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "give " + player.getName() + " nether_star{display:{Name:'{\"text\":\"Inverse\",\"color\":\"red\",\"bold\":true,\"italic\":true}',Lore:['{\"text\":\"Inverts damage (strong is weak, weak is powerful)\",\"color\":\"red\",\"bold\":true,\"italic\":true}']}} 1"); break;
         }
 
         data.set(cursedEnergyKey, PersistentDataType.INTEGER, 200);
