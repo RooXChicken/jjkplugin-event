@@ -61,5 +61,11 @@ public class Dismantle extends Task
         player.getWorld().playSound(target.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 0.4f, 1.2f);
         i++;
     }
+
+    @Override
+    public void onCancel()
+    {
+        target.setMaximumNoDamageTicks(20);
+    }
     
 }
