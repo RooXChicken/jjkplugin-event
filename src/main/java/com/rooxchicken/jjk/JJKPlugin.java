@@ -77,6 +77,7 @@ public class JJKPlugin extends JavaPlugin implements Listener
 {
     public static NamespacedKey cursedEnergyKey;
     public static NamespacedKey maxCursedEnergyKey;
+    public static NamespacedKey cursedTechniqueKey;
     public static int scheduleScale = 4;
 
     public static ArrayList<Task> tasks;
@@ -104,6 +105,7 @@ public class JJKPlugin extends JavaPlugin implements Listener
 
         cursedEnergyKey = new NamespacedKey(this, "jjk_cursedEnergy");
         maxCursedEnergyKey = new NamespacedKey(this, "jjk_maxCursedEnergy");
+        cursedEnergyKey = new NamespacedKey(this, "jjk_cursedTechnique");
 
         shrineHandler = new Shrine(this);
         infinityHandler = new Infinity(this);
@@ -175,6 +177,17 @@ public class JJKPlugin extends JavaPlugin implements Listener
         
         if(!data.has(maxCursedEnergyKey, PersistentDataType.INTEGER))
             data.set(maxCursedEnergyKey, PersistentDataType.INTEGER, 200);
+
+        if(!data.has(cursedTechniqueKey, PersistentDataType.INTEGER))
+            selectCursedTechnique(player);
+    }
+
+    private void selectCursedTechnique(Player player)
+    {
+        PersistentDataContainer data = player.getPersistentDataContainer();
+        int ce = (int)Math.random() * 3;
+        
+        data.set(cursedTechniqueKey, PersistentDataType.INTEGER, ce);
     }
 
     public static boolean useCursedEnergy(Player player, int amount)

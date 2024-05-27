@@ -36,18 +36,25 @@ import org.bukkit.util.Vector;
 import com.rooxchicken.jjk.JJKPlugin;
 import com.rooxchicken.jjk.Data.BoogieWoogieTargets;
 import com.rooxchicken.jjk.Tasks.InfinityBarrier;
+import com.rooxchicken.jjk.Tasks.InverseTick;
 import com.rooxchicken.jjk.Tasks.PSFreeze;
 import com.rooxchicken.jjk.Tasks.Task;
+
+import net.minecraft.network.protocol.game.PacketPlayOutGameStateChange;
+import net.minecraft.sounds.SoundEffect;
+import net.minecraft.world.level.block.SoundEffectType;
 
 public class Inverse implements Listener
 {
     private Plugin plugin;
-    private ArrayList<Player> inversed;
+    public static ArrayList<Player> inversed;
 
     public Inverse(Plugin _plugin)
     {
         plugin = _plugin;
         inversed = new ArrayList<Player>();
+
+        JJKPlugin.tasks.add(new InverseTick(plugin));
     }
 
     @EventHandler
@@ -66,7 +73,7 @@ public class Inverse implements Listener
         {
             if(inversed.contains(player))
             {
-                inversed.remove(player);
+                remove(player);
                 return;
             }
 
@@ -74,6 +81,7 @@ public class Inverse implements Listener
                 return;
 
             inversed.add(player);
+            player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 1);
         }
     }
 
@@ -97,5 +105,11 @@ public class Inverse implements Listener
         }
         else
             return false;
+    }
+
+    public static void remove(Player player)
+    {
+        inversed.remove(player);
+        player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1, 1);
     }
 }

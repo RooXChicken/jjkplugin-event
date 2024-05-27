@@ -89,6 +89,8 @@ public class MalevolentShrine extends Task
             Bukkit.getLogger().info("Error when pasting shrine schematic!");
             e.printStackTrace();
         }
+
+        //PacketPlayOutGameStateChange
     }
 
     @Override

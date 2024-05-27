@@ -10,6 +10,9 @@ commands:
    resetce:
       description: Restores CE to full
       usage: /resetce
+   resetcursedtechniques:
+      description: Resets all of the cursed techniques
+      usage: /resetcursedtechniques
 
 depend: [ ProtocolLib ]
 
