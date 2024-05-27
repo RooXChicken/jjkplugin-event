@@ -3,6 +3,7 @@ package com.rooxchicken.jjk.Tasks;
 import java.util.List;
 import java.util.Collection;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -24,7 +25,7 @@ public class InfinityBarrier extends Task
 {
     public int tickThreshold = 1;
 
-    private Player player;
+    public Player player;
 
     private int i = 0;
 
@@ -80,8 +81,7 @@ public class InfinityBarrier extends Task
     {
         if(player.getName().equals(e.getName()))
         {
-            JJKPlugin.useCursedEnergy(player, (int)Math.ceil(damage*2));
-            return true;
+            return JJKPlugin.useCursedEnergy(player, (int)Math.ceil(damage*2));
         }
 
         return false;

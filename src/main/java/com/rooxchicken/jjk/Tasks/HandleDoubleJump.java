@@ -89,6 +89,15 @@ public class HandleDoubleJump extends Task implements Listener
         if(event.getCause() != DamageCause.FALL || event.getEntityType() != EntityType.PLAYER)
             return;
 
+            for(Task t : JJKPlugin.tasks)
+            {
+                if(t instanceof InfinityBarrier)
+                    if(((InfinityBarrier)t).player == event.getEntity())
+                    {
+                        return;
+                    }
+            }
+
         event.setCancelled(jumps.contains(event.getEntity()));
     }
 }

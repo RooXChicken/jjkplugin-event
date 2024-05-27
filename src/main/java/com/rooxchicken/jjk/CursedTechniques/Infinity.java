@@ -241,25 +241,32 @@ public class Infinity implements Listener
         if(!(event.getEntity() instanceof Player))
             return;
 
-        event.setCancelled(checkCancel((Player)event.getEntity(), event.getDamage()));
+        event.setCancelled(checkCancel((Player)event.getEntity(), event.getFinalDamage()));
     }
 
     @EventHandler
     public void cancelDamage(EntityDamageByEntityEvent event)
     {
         if(!(event.getDamager() instanceof Player) || !(event.getEntity() instanceof Player))
+        {
+            event.setCancelled(checkCancel((Player)event.getEntity(), event.getFinalDamage()));
             return;
+        }
         
         Player damager = (Player)event.getDamager();
+        Player player = (Player)event.getEntity();
         ItemStack weapon = damager.getInventory().getItemInMainHand();
 
         if(weapon == null || !weapon.hasItemMeta())
             return;
         
         if(weapon.getItemMeta().getDisplayName().equals("§f§l§oInverted Spear of Heaven"))
+        {
+            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 0.4f, 1.6f);
             return;
+        }
 
-        event.setCancelled(checkCancel((Player)event.getEntity(), event.getDamage()));
+        event.setCancelled(checkCancel((Player)event.getEntity(), event.getFinalDamage()));
     }
 
     private boolean checkCancel(Player player, double damage)
