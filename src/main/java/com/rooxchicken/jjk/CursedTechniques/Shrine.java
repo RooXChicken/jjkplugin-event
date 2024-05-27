@@ -94,6 +94,8 @@ public class Shrine implements Listener
 
         if(item.getItemMeta().getDisplayName().equals("§7§l§oShrine"))
         {
+            if(player.getCooldown(Material.GRAY_DYE) > 0)
+                return;
             Entity target = event.getEntity();
             if(target == null)
                 return;

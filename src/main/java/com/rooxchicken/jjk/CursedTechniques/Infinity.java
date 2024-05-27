@@ -8,6 +8,7 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -226,6 +227,8 @@ public class Infinity implements Listener
         
         if(item.getItemMeta().getDisplayName().equals("§b§l§oLimitless"))
         {
+            if(player.getCooldown(Material.LIGHT_BLUE_DYE) > 0)
+                return;
             if(!JJKPlugin.useCursedEnergy(player, 300))
                 return;
 
