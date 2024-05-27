@@ -230,6 +230,7 @@ public class Infinity implements Listener
                 return;
 
             JJKPlugin.tasks.add(new Red(plugin, player));
+            player.setCooldown(item.getType(), 40);
         }
     }
 

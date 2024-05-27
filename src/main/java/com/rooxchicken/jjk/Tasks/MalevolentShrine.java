@@ -96,7 +96,7 @@ public class MalevolentShrine extends Task
     @Override
     public void run()
     {
-        for(int s = 0; s < 4; s++)
+        for(int s = 0; s < 6; s++)
             shrine.slash(player, startPos, true, true, 9, (i % 3 == 0), 0.4f);
 
         i++;

@@ -97,11 +97,13 @@ public class Shrine implements Listener
             Entity target = event.getEntity();
             if(target == null)
                 return;
-
+                
             if(!JJKPlugin.useCursedEnergy(player, 300))
                 return;
-
+                
+                
             JJKPlugin.tasks.add(new Dismantle(plugin, this, player, target.getLocation(), (LivingEntity)target));
+            player.setCooldown(item.getType(), 40);
         }
     }
 
