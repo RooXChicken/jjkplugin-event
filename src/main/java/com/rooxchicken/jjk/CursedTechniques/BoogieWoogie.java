@@ -18,6 +18,7 @@ import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -78,6 +79,24 @@ public class BoogieWoogie implements Listener
     }
 
     @EventHandler
+    public void activateBlue(EntityDamageByEntityEvent event)
+    {
+        if(!(event.getDamager() instanceof Player))
+            return;
+    
+        Player player = (Player)event.getDamager();
+        ItemStack item = player.getInventory().getItemInMainHand();
+
+        if(item == null || !item.hasItemMeta())
+            return;
+        
+        if(item.getItemMeta().getDisplayName().equals("§1§l§oBoogie Woogie"))
+        {
+            selectBoogie(player, item);
+        }
+    }
+
+    @EventHandler
     public void activateBoogieWoogie(PlayerInteractEvent event)
     {
         if(event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
@@ -111,23 +130,10 @@ public class BoogieWoogie implements Listener
         }
     }
 
-    @EventHandler
-    public void selectBoogieWoogie(PlayerInteractEvent event)
+    private void selectBoogie(Player player, ItemStack item)
     {
-        if(event.getAction() != Action.LEFT_CLICK_AIR)
-            return;
-        
-        Player player = event.getPlayer();
-        ItemStack item = event.getItem();
-
-        if(item == null || !item.hasItemMeta())
-            return;
-        
-        if(!item.getItemMeta().getDisplayName().equals("§1§l§oBoogie Woogie"))
-            return;
-
         if(!targets.containsKey(player))
-            targets.put(player, new BoogieWoogieTargets(player, this));
+        targets.put(player, new BoogieWoogieTargets(player, this));
 
         if(player.isSneaking())
         {
@@ -149,5 +155,23 @@ public class BoogieWoogie implements Listener
             if(targets.get(player).setOrBoogie(target, this))
                 targets.remove(player);
         }
+    }
+
+    @EventHandler
+    public void selectBoogieWoogie(PlayerInteractEvent event)
+    {
+        if(event.getAction() != Action.LEFT_CLICK_AIR)
+            return;
+        
+        Player player = event.getPlayer();
+        ItemStack item = event.getItem();
+
+        if(item == null || !item.hasItemMeta())
+            return;
+        
+        if(!item.getItemMeta().getDisplayName().equals("§1§l§oBoogie Woogie"))
+            return;
+
+        selectBoogie(player, item);
     }
 }
