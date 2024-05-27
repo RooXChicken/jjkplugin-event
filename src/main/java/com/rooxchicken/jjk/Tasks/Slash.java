@@ -56,10 +56,13 @@ public class Slash extends Task
         player.getPersistentDataContainer().set(JJKPlugin.maxCursedEnergyKey, PersistentDataType.INTEGER, 2000);
 
         if(randomDirection)
+        {
             startPos.setDirection(new Vector(Math.random()*2-1, Math.random()*2-1, Math.random()*2-1));
+            startPos.add(startPos.getDirection().multiply(8));
+        }
 
         if(playSound)
-            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GENERIC_SMALL_FALL, volume, 0.9f);
+            player.getWorld().playSound(startPos, Sound.ENTITY_GENERIC_BURN, volume, 1.5f);
         
     }
 

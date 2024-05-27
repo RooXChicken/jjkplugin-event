@@ -55,7 +55,7 @@ public class BoogieWoogieTargets
         if(p == null && e != null)
         {
             p = e;
-            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 1);
+            player.playSound(player.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 1);
             addGlow(player, p);
         }
         else if(t == null && e != null)
@@ -67,7 +67,7 @@ public class BoogieWoogieTargets
                 cancel();
                 return false;
             }
-            player.getWorld().playSound(player.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 1);
+            player.playSound(player.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 1);
             addGlow(player, t);
         }
         else if(p != null && t != null)
@@ -88,7 +88,7 @@ public class BoogieWoogieTargets
 
     public void cancel()
     {
-        player.getWorld().playSound(player.getLocation(), Sound.BLOCK_STONE_BREAK, 1, 1);
+        player.playSound(player.getLocation(), Sound.BLOCK_STONE_BREAK, 1, 1);
         if(p != null)
             removeGlow(player, p);
         if(t != null)
@@ -159,5 +159,13 @@ public class BoogieWoogieTargets
         packet.getDataValueCollectionModifier().write(0, wrappedDataValueList);
         
         ProtocolLibrary.getProtocolManager().sendServerPacket(player, packet);
+    }
+
+    public void update()
+    {
+        if(p == null)
+            removeGlow(player, p);
+        if(t == null)
+            removeGlow(player, t);
     }
 }

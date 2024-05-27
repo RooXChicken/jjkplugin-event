@@ -93,7 +93,16 @@ public class BoogieWoogie implements Listener
         {
             Entity target = JJKPlugin.getTarget(player, 80);
             if(target == null)
+            {
+                if(targets.get(player).p == null || (targets.get(player).p != null && targets.get(player).t != null))
+                    return;
+                if(!JJKPlugin.useCursedEnergy(player, 60))
+                    return;
+
+                boogie(player, targets.get(player).p, player);
+                targets.get(player).cancel();
                 return;
+            }
             
             if(!JJKPlugin.useCursedEnergy(player, 60))
                 return;
@@ -125,7 +134,8 @@ public class BoogieWoogie implements Listener
             targets.get(player).cancel();
             targets.remove(player);
 
-            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_STONE_BREAK, 1, 1);
+            player.playSound(player.getLocation(), Sound.BLOCK_STONE_BREAK, 1, 1);
+            
             return;
         }
         

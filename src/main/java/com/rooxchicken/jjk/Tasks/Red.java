@@ -53,7 +53,7 @@ public class Red extends Task
         }
 
         colors = new Color[] {Color.RED, Color.ORANGE, Color.RED};
-        player.getWorld().playSound(player.getLocation(), Sound.ENTITY_BAT_TAKEOFF, 1, 1);
+        player.getWorld().playSound(start, Sound.ENTITY_BAT_TAKEOFF, 1, 1);
     }
 
     @Override

@@ -145,7 +145,10 @@ public class JJKPlugin extends JavaPlugin implements Listener
                 }
 
                 for(Task t : toRemove)
+                {
+                    t.onCancel();
                     tasks.remove(t);
+                }
 
                 infinityHandler.tick();
             }
@@ -215,6 +218,11 @@ public class JJKPlugin extends JavaPlugin implements Listener
 
     public static Block getBlock(Player player, int range)
     {
+        return getBlock(player, range, player.getLocation().getPitch());
+    }
+
+    public static Block getBlock(Player player, int range, float pitch)
+    {
         Predicate<Entity> p = new Predicate<Entity>() {
 
             @Override
@@ -224,7 +232,11 @@ public class JJKPlugin extends JavaPlugin implements Listener
             }
             
         };
-        RayTraceResult ray = player.getWorld().rayTrace(player.getEyeLocation(), player.getLocation().getDirection(), range, FluidCollisionMode.NEVER, true, 0.2, p);
+
+        Location dir = player.getLocation().clone();
+        dir.setPitch(pitch);
+
+        RayTraceResult ray = player.getWorld().rayTrace(player.getEyeLocation(), dir.getDirection(), range, FluidCollisionMode.NEVER, true, 0.2, p);
         
         if(ray != null)
             return ray.getHitBlock();

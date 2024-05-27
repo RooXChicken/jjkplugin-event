@@ -55,7 +55,7 @@ public class Blue extends Task
 
         colors = new Color[] {Color.BLUE, Color.AQUA, Color.BLUE};
 
-        player.getWorld().playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 2);
+        player.getWorld().playSound(start, Sound.BLOCK_BEACON_ACTIVATE, 1, 2);
     }
 
     @Override

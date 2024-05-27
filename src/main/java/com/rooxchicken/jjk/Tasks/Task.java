@@ -24,4 +24,6 @@ public abstract class Task
     }
 
     public void run() {}
+
+    public void onCancel() {}
 }

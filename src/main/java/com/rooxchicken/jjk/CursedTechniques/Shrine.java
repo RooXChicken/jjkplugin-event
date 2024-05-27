@@ -40,6 +40,9 @@ public class Shrine implements Listener
         JJKPlugin.tasks.add(new Slash(plugin, player, pos, random, dealDamage, damage, playSound, volume));
     }
 
+    // @EventHandler
+    // public void bypassShield()
+
     @EventHandler
     public void preventDamage(EntityDamageEvent event)
     {
